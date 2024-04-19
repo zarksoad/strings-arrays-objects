@@ -1,12 +1,12 @@
 
-var users = {}
+let users = {}
 function check_user(user,objeto,email){
     let key = Object.keys(objeto);
     let num = 1
     while(key.includes(user + num)){
-        num++;
+        num++; 
     }
-    objeto[user + num] = email;
+    objeto[user + num] = user + num +email;
     alert(`Usuario agregado al final: ${user + num}`);
 }
 let flag = true

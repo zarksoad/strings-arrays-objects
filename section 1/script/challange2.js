@@ -1,5 +1,5 @@
 
-let check_password = (password,flag) => {
+let check_password = (password) => {
     let list = []
     if (password.length < 8){
         list.push("should have at least 8 characters")
@@ -36,7 +36,7 @@ let check_password = (password,flag) => {
 let flag = true   
 while(flag){   
     let password = prompt("Please enter your password")
-    flag =  check_password(password,flag)
+    flag =  check_password(password)
     if(!flag)break;
 } 
 
