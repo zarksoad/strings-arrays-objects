@@ -136,5 +136,5 @@ function main(list){
 ];
 
 list = []
-main(lista)
-alert("Elementos finalizados" +JSON.stringify(lista))
+main(list)
+alert("Elementos finalizados" +JSON.stringify(list))
