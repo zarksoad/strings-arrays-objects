@@ -1,7 +1,4 @@
-let inventary = []
 let counter = 1
-let contador = 1
-
 function add_element(list) {
     const name = prompt("Enter the name of the article").toLowerCase().trim()
     const cost = parseInt(prompt("Enter the price of the article"))
@@ -11,7 +8,6 @@ function add_element(list) {
         alert("Enter a valid number in cost and amount")
         return
     }
-
     list.push({
         id: counter++, name: name,
         price: cost,
@@ -21,15 +17,16 @@ function add_element(list) {
 
 }
 function duplicate(list) {
-    let name_duplicate = prompt("Enter the name of the articule that you want to duplicate")
-    let search = list.find(item => item.name === name_duplicate)
-    contador
+    console.table(list)
+    let nameDuplicate = prompt("Enter the name of the articule that you want to duplicate")
+    let search = list.find(item => item.name === nameDuplicate)
+
     if (!search) {
         alert("the item doesn't exist in the inventory")
         return
     }
     else {
-        // duplicate element    
+        // duplicate element   
         let newName = `${search.name} copy` // lampara 
         let counterDuplicate = 1
 
@@ -40,57 +37,116 @@ function duplicate(list) {
         
         list.push({
             id: counter++, name: newName,
-            price: search.cost,
+            price: search.price,
             quantity: search.quantity,
             description: search.description
         })
-
-    }
-
-
-
-}
-
-function check_inventory(list){
-    alert(JSON.stringify(list))
-    console.log(list)
+    }}
+function checkInventory(list){
+    console.table(list)
     let checkNombre = prompt("Enter the name of the item")
     let searchName = list.filter(item => item.name.includes(checkNombre))
-    if(searchName){
-        alert(JSON.stringify(searchName))
+    if(searchName.length >0){
+        console.table(searchName)
     }
-    let checkByCost = prompt("Enter the cost the range of the cost separete by ',' example: (min)100,(max)200 :").split(',')
-    let range = list.filter(item => item.cost >= 20 && item.cost <= 50)
-    alert(JSON.stringify(range))
-   
+    else{
+        alert("the item there is not in the list")
+    }
+    let checkByCostMin = parseInt(prompt("Enter the cost the range of the cost min :"))
+    let checkByCostMax = parseInt(prompt("Enter the cost the range of the cost max "))
+    if(!isNaN(checkByCostMax) && !isNaN(checkByCostMin) ){
+        let range = list.filter(item => item.cost >= checkByCostMin && item.cost <= checkByCostMax)
+        if(range.length === 0){
+            alert("There are not articles with this range of price")
+        }
+        else{
+             console.table(range)
+    }
+    }
+}
+function updateIventary(list){
+    console.table(list)
+    let searchById = parseInt(prompt("Enter the Item that you need to change by Id"))
+    let flag = this
+    if(!isNaN(searchById)){
+        let findId = list.find(item => item.id === searchById)
+        if(findId){
+            console.table(findId)
+            while(flag){
+                flag = confirm("Would you like to continue modifyng properties?")
+                if(!flag)break;
+                let menu = parseInt(prompt("Enter the opcion to modify \n 1 to name \n 2 to price  \n 3 to quantity  \n 4 to description"))
+                if(!isNaN(menu)){
+                    if(menu === 1){
+                        let newName = prompt("Enter the new name of the product")
+                        findId.name = newName
+                        
+                    }
+                    else if (menu === 2){
+                        let newPrice = parseFloat(prompt("Enter the new price of the product"))
+                        if(!isNaN(newPrice)){
+                            findId.price = newPrice
+                            console.table(findId)
+                        }
+                        else{
+                            alert("Enter a valid price")
+                        }
+                    }
+                    else if (menu === 3){
+                        let newQuantity = parseFloat(prompt("Enter the new Quantity of the product"))
+                        if(!isNaN(newQuantity)){
+                            findId.quantity = newQuantity
+                            console.table(findId)
+                        }
+                        else{
+                            alert("Enter a valid quantity")
+                        }
 
+                    }
+                    else if(menu === 4){
+                        let newDescription = prompt("Enter the new description of the product")
+                        findId.description = newDescription
+                        
+                    }
+                    else{
+                        alert("Enter a valid opcion")
+                    }
+                }
+                else{
+                    alert("Enter a valid opcion")
+                }
+                    
+                }
+            console.table(list)    
 
-
+        }
+        else{
+            alert("The ID doesn't exist in stock")
+        }
+        
+    }
+    else{
+        alert("Please enter a valid Id")
+    }
     
 
+    
 }
-
-
-
-
 // for test
 const listaObjetos = [
-    { id: counter++, name: "lampara ", cost: 25.99, quantity: 10, description: "." },
-    { id: counter++, name: "lampara ", cost: 25.99, quantity: 10, description: "." },
-    { id: counter++, name: "lampara", cost: 25.99, quantity: 10, description: "." },
-    { id: counter++, name: "lampara", cost: 25.99, quantity: 10, description: "." },
-    { id: counter++, name: "silla", cost: 49.99, quantity: 20, description: "." },
-    { id: counter++, name: "mesa", cost: 99.99, quantity: 5, description: "Mesa de centro con superficie de vidrio." },
-    { id: counter++, name: "libro", cost: 15.50, quantity: 30, description: "Novela de misterio escrita por un autor famoso." },
-    { id: counter++, name: "planta", cost: 9.99, quantity: 15, description: "Planta de interior fácil de cuidar." },
-    { id: counter++, name: "reloj", cost: 39.99, quantity: 8, description: "Reloj de pared con diseño elegante." },
-    { id: counter++, name: "cuadro", cost: 29.99, quantity: 12, description: "Cuadro decorativo para el salón." },
-    { id: counter++, name: "cojin", cost: 12.99, quantity: 25, description: "Cojín decorativo con estampado floral." }
-];
+    { id: counter++, name: "lampara", price: 25.99, quantity: 10, description: "." },
+    { id: counter++, name: "silla", price: 49.99, quantity: 20, description: "." },
+    { id: counter++, name: "mesa", price: 99.99, quantity: 5, description: "Mesa de centro con superficie de vidrio." },
+    { id: counter++, name: "libro", price: 15.50, quantity: 30, description: "Novela de misterio escrita por un autor famoso." },
+    { id: counter++, name: "planta", price: 9.99, quantity: 15, description: "Planta de interior fácil de cuidar." },
+    { id: counter++, name: "reloj", price: 39.99, quantity: 8, description: "Reloj de pared con diseño elegante." },
+    { id: counter++, name: "cuadro", price: 29.99, quantity: 12, description: "Cuadro decorativo para el salón." },
+    { id: counter++, name: "cojin", price: 12.99, quantity: 25, description: "Cojín decorativo con estampado floral." }
+]
 
-
-
-
-check_inventory(listaObjetos)
+duplicate(listaObjetos)
+duplicate(listaObjetos)
+updateIventary(listaObjetos)
+console.table(listaObjetos)
 
 
