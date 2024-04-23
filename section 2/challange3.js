@@ -1,5 +1,4 @@
 let inventary = []
-let counter_duplicate = 1
 let counter = 1
 let contador = 1
 
@@ -21,7 +20,7 @@ function add_element(list) {
     })
 
 }
-function duplicate(list,) {
+function duplicate(list) {
     let name_duplicate = prompt("Enter the name of the articule that you want to duplicate")
     let search = list.find(item => item.name === name_duplicate)
     contador
@@ -31,70 +30,67 @@ function duplicate(list,) {
     }
     else {
         // duplicate element    
-        let new_name = `${search.name} copy` // lampara 
-        let new_search = list.find(items => items.name === new_name)  // True 
-        if (new_search) {
-            alert(`The ${search.name} already exists`)
-            if (contador === 1) { counter_duplicate = 1 };
-            contador += 1
-            alert(`contador ${contador}`)
-            new_name += `(${counter_duplicate++})`
-            alert(`new name ${new_name}`)
-            list.push({
-                id: counter++, name: new_name,
-                price: search.cost,
-                quantity: search.quantity,
-                description: search.description
+        let newName = `${search.name} copy` // lampara 
+        let counterDuplicate = 1
 
-            })
-
+        while(list.some(item => item.name === newName)){
+            newName = `${search.name} copy (${counterDuplicate})`;
+            counterDuplicate++;
         }
-        else {
+        
+        list.push({
+            id: counter++, name: newName,
+            price: search.cost,
+            quantity: search.quantity,
+            description: search.description
+        })
 
-            list.push({
-                id: counter++, name: new_name,
-                price: search.cost,
-                quantity: search.quantity,
-                description: search.description
-            })
-            contador = 1
-
-        }
     }
 
 
 
 }
 
+function check_inventory(list){
+    alert(JSON.stringify(list))
+    console.log(list)
+    let checkNombre = prompt("Enter the name of the item")
+    let searchName = list.filter(item => item.name.includes(checkNombre))
+    if(searchName){
+        alert(JSON.stringify(searchName))
+    }
+    let checkByCost = prompt("Enter the cost the range of the cost separete by ',' example: (min)100,(max)200 :").split(',')
+    let range = list.filter(item => item.cost >= 20 && item.cost <= 50)
+    alert(JSON.stringify(range))
+   
+
+
+
+    
+
+}
+
+
+
+
 // for test
 const listaObjetos = [
-    { id: counter++, name: "lampara", price: 25.99, quantity: 10, description: "." },
-    { id: counter++, name: "silla", price: 49.99, quantity: 20, description: "." },
-    // { id: counter++, name: "mesa", price: 99.99, quantity: 5, description: "Mesa de centro con superficie de vidrio." },
-    // { id: counter++, name: "libro", price: 15.50, quantity: 30, description: "Novela de misterio escrita por un autor famoso." },
-    // { id: counter++, name: "planta", price: 9.99, quantity: 15, description: "Planta de interior fácil de cuidar." },
-    // { id: counter++, name: "reloj", price: 39.99, quantity: 8, description: "Reloj de pared con diseño elegante." },
-    // { id: counter++, name: "cuadro", price: 29.99, quantity: 12, description: "Cuadro decorativo para el salón." },
-    // { id: counter++, name: "cojin", price: 12.99, quantity: 25, description: "Cojín decorativo con estampado floral." }
+    { id: counter++, name: "lampara ", cost: 25.99, quantity: 10, description: "." },
+    { id: counter++, name: "lampara ", cost: 25.99, quantity: 10, description: "." },
+    { id: counter++, name: "lampara", cost: 25.99, quantity: 10, description: "." },
+    { id: counter++, name: "lampara", cost: 25.99, quantity: 10, description: "." },
+    { id: counter++, name: "silla", cost: 49.99, quantity: 20, description: "." },
+    { id: counter++, name: "mesa", cost: 99.99, quantity: 5, description: "Mesa de centro con superficie de vidrio." },
+    { id: counter++, name: "libro", cost: 15.50, quantity: 30, description: "Novela de misterio escrita por un autor famoso." },
+    { id: counter++, name: "planta", cost: 9.99, quantity: 15, description: "Planta de interior fácil de cuidar." },
+    { id: counter++, name: "reloj", cost: 39.99, quantity: 8, description: "Reloj de pared con diseño elegante." },
+    { id: counter++, name: "cuadro", cost: 29.99, quantity: 12, description: "Cuadro decorativo para el salón." },
+    { id: counter++, name: "cojin", cost: 12.99, quantity: 25, description: "Cojín decorativo con estampado floral." }
 ];
 
 
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
-duplicate(listaObjetos)
 
 
-
-
-alert(JSON.stringify(listaObjetos))
+check_inventory(listaObjetos)
 
 
