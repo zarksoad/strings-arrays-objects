@@ -133,19 +133,23 @@ function updateIventary(list) {
 }
 
 function deleteElement(list) {
-    let searchById = parseInt(prompt("Enter the Item that you need to change by Id"))
+    console.table(list)
+    let searchById = parseInt(prompt("Enter the Item Id that you want to delete "))
     if (!isNaN(searchById)) {
-        opcion = confirm(`Estas seguro que deseas eliminar el producto con sus propiedad ${searchById}?`)
-        if (opcion == true) {
-            let_new_list = list.filter((item) => item.id !== searchById)
+        let opcion = confirm(`Are you sure you want to delete this product? ${JSON.stringify(list.find(item => item.id === searchById))}?`)
+        if (opcion) {
+            list = list.filter((item) => item.id !== searchById)
+            console.table(list)
+            alert("The element has been delete")
+            return  list
         }
         else {
-            return
+            return list
         }
     }
 }
 // for test
-const listaObjetos = [
+let listaObjetos = [
     { id: counter++, name: "lampara", price: 25.99, quantity: 10, description: "." },
     { id: counter++, name: "silla", price: 49.99, quantity: 20, description: "." },
     { id: counter++, name: "mesa", price: 99.99, quantity: 5, description: "Mesa de centro con superficie de vidrio." },
@@ -156,5 +160,12 @@ const listaObjetos = [
     { id: counter++, name: "cojin", price: 12.99, quantity: 25, description: "Cojín decorativo con estampado floral." }
 ]
 
-deleteElement(listaObjetos)
-console.table(listaObjetos);
+
+function main(){
+    listaObjetos =deleteElement(listaObjetos)
+    console.table(listaObjetos)
+    
+}
+
+main()
+
