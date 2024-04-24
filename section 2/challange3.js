@@ -1,4 +1,44 @@
 let counter = 1
+
+// Search by ID
+let checkElementById =  (list)=>{
+    let searchById = parseInt(prompt("Enter the Item that you need, by Id please"))
+    let foundItem = list.find(item => item.id === searchById);
+    if(foundItem){
+        return foundItem
+    }
+    else{
+        return false;
+
+    }
+}
+
+// Main Functions
+
+// check if the product is in the list and if is avalailbe to sell 
+function checkAvailableWithCost(list){
+    console.table(list)
+    let item = checkElementById(list)
+    if(item){
+        alert(`The item is ${JSON.stringify(item)}`)
+        let cant = item.quantity > 0
+        if(cant){
+            alert(`The item has enough quantity to sell`)
+            console.table(item)
+            
+        }   
+        else{
+            console.table(`The item has not enough quantity to sell`)
+            console.table(item)
+        }
+        
+    }
+    else{
+        alert("The Item doesn't exist ")
+    }
+    
+}
+// Add Element
 function add_element(list) {
     const name = prompt("Enter the name of the article").toLowerCase().trim()
     const cost = parseInt(prompt("Enter the price of the article"))
@@ -16,7 +56,8 @@ function add_element(list) {
     })
 
 }
-function duplicate(list) {
+// Duplicate element
+function duplicateElement(list) {
     console.table(list)
     let nameDuplicate = prompt("Enter the name of the articule that you want to duplicate")
     let search = list.find(item => item.name === nameDuplicate)
@@ -41,6 +82,7 @@ function duplicate(list) {
         })
     }
 }
+// Check iventary
 function checkInventory(list) {
     console.table(list)
     let checkNombre = prompt("Enter the name of the item")
@@ -50,7 +92,13 @@ function checkInventory(list) {
     }
     else {
         alert("the item there is not in the list")
+        return false
     }
+   
+}
+
+// Check, By cost  Range of price
+function checkByCostMaxAndMin(list){
     let checkByCostMin = parseInt(prompt("Enter the cost the range of the cost min :"))
     let checkByCostMax = parseInt(prompt("Enter the cost the range of the cost max "))
     if (!isNaN(checkByCostMax) && !isNaN(checkByCostMin)) {
@@ -62,7 +110,10 @@ function checkInventory(list) {
             console.table(range)
         }
     }
+
 }
+
+// Udate items from iventary
 function updateIventary(list) {
     console.table(list)
     let searchById = parseInt(prompt("Enter the Item that you need to change by Id"))
@@ -131,7 +182,7 @@ function updateIventary(list) {
 
 
 }
-
+// Delete elemente
 function deleteElement(list) {
     console.table(list)
     let searchById = parseInt(prompt("Enter the Item Id that you want to delete "))
@@ -150,7 +201,7 @@ function deleteElement(list) {
 }
 // for test
 let listaObjetos = [
-    { id: counter++, name: "lampara", price: 25.99, quantity: 10, description: "." },
+    { id: counter++, name: "lampara", price: 25.99, quantity: 0, description: "." },
     { id: counter++, name: "silla", price: 49.99, quantity: 20, description: "." },
     { id: counter++, name: "mesa", price: 99.99, quantity: 5, description: "Mesa de centro con superficie de vidrio." },
     { id: counter++, name: "libro", price: 15.50, quantity: 30, description: "Novela de misterio escrita por un autor famoso." },
@@ -160,10 +211,9 @@ let listaObjetos = [
     { id: counter++, name: "cojin", price: 12.99, quantity: 25, description: "Cojín decorativo con estampado floral." }
 ]
 
-
 function main(){
-    listaObjetos =deleteElement(listaObjetos)
-    console.table(listaObjetos)
+    //listaObjetos =deleteElement(listaObjetos)
+    checkAvailableWithCost(listaObjetos)
     
 }
 
