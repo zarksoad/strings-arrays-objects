@@ -24,12 +24,12 @@ function checkAvailableWithCost(list){
         let cant = item.quantity > 0
         if(cant){
             alert(`The item has enough quantity to sell`)
-            console.table(item)
+            return item
             
         }   
         else{
             console.table(`The item has not enough quantity to sell`)
-            console.table(item)
+            return false
         }
         
     }
@@ -37,6 +37,29 @@ function checkAvailableWithCost(list){
         alert("The Item doesn't exist ")
     }
     
+}
+
+// Function to sell 
+function sellElement(list){
+   let result = checkAvailableWithCost(list)
+   console.table(result)
+   if(result){
+    let cant = parseInt(prompt(`How many quantity do you want to sell name ${JSON.stringify(result.name)} quantity ${JSON.stringify(result.quantity)}`))
+    if(cant  <= result.quantity){
+        result.quantity -= cant
+        alert("The item has benn sold "+JSON.stringify(result))
+    }
+    else{
+        alert("You can't sell more than the quantity of the item")
+    }    
+   }
+   else{
+        alert("Error, You can't sell this element")
+        return
+   }
+   
+    
+
 }
 // Add Element
 function add_element(list) {
@@ -213,7 +236,11 @@ let listaObjetos = [
 
 function main(){
     //listaObjetos =deleteElement(listaObjetos)
-    checkAvailableWithCost(listaObjetos)
+    sellElement(listaObjetos)
+    sellElement(listaObjetos)
+    sellElement(listaObjetos)
+    console.log("Nuevos productos vendidos")
+    console.table(listaObjetos)
     
 }
 
